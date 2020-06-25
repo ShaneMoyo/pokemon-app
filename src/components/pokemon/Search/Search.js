@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; 
-import api from '../../../services/pokemonAPI'; 
+import SearchContext from '../../../contexts/SearchContext'; 
+
 
 export default class Search extends Component { 
     state={ 
@@ -12,20 +13,24 @@ export default class Search extends Component {
         }); 
     }
 
-    handleSubmit = event => {
+    handleSubmit = (event, handleSearch) => {
         event.preventDefault(); 
-        api.getPokemonByName(this.state.value); 
+        handleSearch(this.state.value)
     }
 
     render() { 
         return (
-            <form onSubmit={event => this.handleSubmit(event)} style={{ width: '50%', margin: 'auto'}}>
-                <fieldset >
-                    <label>Search Pokemon: </label>
-                    <input type="text" onChange={({ target: { value }}) => this.handleChange(value)}/> 
-                    <button type="submit" > Submit</button>
-                </fieldset>
-            </form> 
-        ); 
+            <SearchContext.Consumer>
+                { handleSearch => (
+                    <form onSubmit={event => this.handleSubmit(event, handleSearch)} style={{ width: '50%', margin: 'auto'}}>
+                        <fieldset >
+                            <label>Search Pokemon: </label>
+                            <input type="text" onChange={({ target: { value }}) => this.handleChange(value)}/> 
+                            <button type="submit" > Submit</button>
+                        </fieldset>
+                    </form> 
+                )}
+            </SearchContext.Consumer>
+        );  
     }
 }

@@ -4,7 +4,8 @@ import {
     Route
 } from 'react-router-dom'; 
 import Search from './Search';
-import api from '../../services/pokemonAPI';  
+import api from '../../services/pokemonAPI'; 
+import SearchContext from '../../contexts/SearchContext';  
 
 
 export default class PokemonContainer extends Component { 
@@ -35,12 +36,17 @@ export default class PokemonContainer extends Component {
     }
 
     render() { 
+        console.log('state.. ', this.state)
         return (
             <section style={{ width: '80%', margin: 'auto'}}>
                 <h1 style={{ width: '30%', margin: 'auto'}}>Pokemon Container</h1> 
                 <div>
                     <Switch>
-                        <Route path="/" component={Search}/> 
+                        <Route path="/">
+                            <SearchContext.Provider value={this.handleSearch}> 
+                                <Search/>
+                            </SearchContext.Provider>
+                        </Route> 
                     </Switch>
                 </div>
             </section>
