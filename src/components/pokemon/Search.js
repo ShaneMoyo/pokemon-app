@@ -1,4 +1,5 @@
 import React, {Component} from 'react'; 
+import api from '../../services/pokemonAPI'; 
 
 export default class Search extends Component { 
     state={ 
@@ -15,6 +16,7 @@ export default class Search extends Component {
     handleSubmit = event => {
         event.preventDefault(); 
         console.log('submitting', this.state.value)
+        api.getPokemonByName(this.state.value); 
     }
 
     render() { 
