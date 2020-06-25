@@ -4,6 +4,7 @@ import {
     Route
 } from 'react-router-dom'; 
 import Search from './Search';
+import PokemonDetail from './pokemon-detail'
 import api from '../../services/pokemonAPI'; 
 import SearchContext from '../../contexts/SearchContext';  
 
@@ -44,7 +45,7 @@ export default class PokemonContainer extends Component {
                     <Switch>
                         <Route path="/">
                             <SearchContext.Provider value={this.handleSearch}> 
-                                <Search/>
+                                <Search data={this.state}/>
                             </SearchContext.Provider>
                         </Route> 
                     </Switch>
